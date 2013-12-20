@@ -86,9 +86,44 @@ var data = [{"artist": "Kanye West",
     "name": "American Gangster",
     "score": 83
 }, {
+    "date": "2003-11-14",
+    "name": "The Black Album",
+    "score": 84
+},{
+    "date": "2002-11-12",
+    "name": "The BluePrint 2",
+    "score": 64
+},{
+    "date": "2001-09-11",
+    "name": "The Blueprint",
+    "score": 88
+},{
     "date": "2006-11-21",
     "name": "Kingdom Come",
     "score": 67
+}]},
+{"artist": "Lil Wayne",
+"color":"#facade",
+"albums":[{
+    "date": "2008-06-10",
+    "name": "Tha Carter III",
+    "score": 84
+}, {
+    "date": "2011-09-29",
+    "name": "Tha Carter IV",
+    "score": 60
+}, {
+    "date": "2010-02-02",
+    "name": "Rebirth",
+    "score": 37
+}, {
+    "date": "2010-08-12",
+    "name": "I Am Not a Human Being",
+    "score": 67
+},{
+    "date": "2013-01-26",
+    "name": "I Am Not a Human Being II",
+    "score": 51
 }]},
 {"artist": "Drake",
 "color":"#facade",
@@ -152,7 +187,7 @@ var context = svg.append('g')
 
 var colorScale =d3.scale.category10();
 
-x.domain([new Date("2003-02-10"), d3.time.day.offset(new Date("2014-06-18"), 1)])
+x.domain([new Date("2000-02-10"), d3.time.day.offset(new Date("2014-06-18"), 1)])
     .rangeRound([100, width - margin.left - margin.right]);
 
 y.domain([0, 100])
