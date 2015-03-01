@@ -1,6 +1,6 @@
-"use strict";
-
 $(document).ready(function() {
+    "use strict";
+    
     String.prototype.trim = function() {
         return this.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
     };
@@ -9,18 +9,6 @@ $(document).ready(function() {
         artist = artist.replace(/\s+/g, "-").replace(/'/g, "").replace(/\$/g, "");
         return "http://www.metacritic.com/person/" + artist + "?filter-options=music";
     }
-
-    $(":input[name=artists]").keyup(function(e) {
-        // "ENTER" key
-        if (e.keyCode === 13) {
-            search();
-        }
-    });
-
-    $("#enter").click(function(e) {
-        e.preventDefault();
-        search();
-    });
 
     function search() {
         // Set the default artists
@@ -68,6 +56,18 @@ $(document).ready(function() {
             draw(data);
         });
     }
+
+    $(":input[name=artists]").keyup(function(e) {
+        // "ENTER" key
+        if (e.keyCode === 13) {
+            search();
+        }
+    });
+
+    $("#enter").click(function(e) {
+        e.preventDefault();
+        search();
+    });
 
     ///////////////////////////////////////////////////////////////////////////
     // MAIN
