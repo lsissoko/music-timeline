@@ -24,35 +24,25 @@ $(document).ready(function() {
 
     function search() {
         // Set the default artists
-        // var artists = ["kanye west", "jay-z", "lil wayne", "drake"];
-        var artists = [
-            ["kanye west", "kanye west"],
-            ["jay-z", "jay-z"],
-            ["lil wayne", "lil wayne"],
-            ["drake", "drake"]
-        ];
+        var artists = ["kanye west", "jay-z", "lil wayne", "drake"];
 
         // Replace default artists with user-given values
         var inputArtists = $("input[name=artists]").val().split(",");
         $.each(inputArtists, function(i, artist) {
-            // artists[i] = artist;
-            artist = artist.trim().toLowerCase();
-            artists[i] = [artist, artist];
+            artists[i] = artist.trim().toLowerCase();
         });
         
         // Get the artist data
         var requests = [];
         var data = [];
         $.each(artists, function(i, artist) {
-            console.log(metacriticURL(artist[1]));
-            // artist = artist.trim();
             requests.push(
                 $.ajax({
-                    url: metacriticURL(artist[1]),
+                    url: metacriticURL(artist),
                     type: "GET",
                     success: function(res) {
                         var artistObj = {
-                            "artist": artist[0],
+                            "artist": artist,
                             "albums": []
                         };
                         var credits = $(res.responseText)
