@@ -1,6 +1,6 @@
 $(document).ready(function() {
     "use strict";
-    
+
     String.prototype.trim = function() {
         return this.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
     };
@@ -19,7 +19,7 @@ $(document).ready(function() {
         $.each(inputArtists, function(i, artist) {
             artists[i] = artist.trim().toLowerCase();
         });
-        
+
         // Get the artist data
         var requests = [];
         var data = [];
@@ -29,22 +29,22 @@ $(document).ready(function() {
                     url: metacriticURL(artist),
                     type: "GET",
                     success: function(res) {
-                        var artistObj = {
-                            "artist": artist,
-                            "albums": []
-                        };
+                        var albums = [];
                         var credits = $(res.responseText)
                             .find("table.credits.person_credits>tbody")
                             .children();
                         $.each(credits, function(i, tr) {
                             var row = $(tr);
-                            artistObj.albums.push({
+                            albums.push({
                                 date: row.find("td.year").text().trim(),
                                 name: row.find("a").text(),
                                 score: parseInt(row.find("span.metascore_w").text())
                             });
                         });
-                        data = data.concat(artistObj);
+                        data = data.concat({
+                            "artist": artist,
+                            "albums": albums
+                        });
                     }
                 })
             );
