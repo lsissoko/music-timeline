@@ -1,7 +1,7 @@
 $(document).ready(function() {
     "use strict";
 
-    String.prototype.trim = function() {
+    String.prototype.squish = function() {
         return this.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
     };
 
@@ -17,7 +17,7 @@ $(document).ready(function() {
         // Replace default artists with user-given values
         var inputArtists = $("input[name=artists]").val().split(",");
         $.each(inputArtists, function(i, artist) {
-            artists[i] = artist.trim().toLowerCase();
+            artists[i] = artist.squish().toLowerCase();
         });
 
         // Get the artist data
@@ -36,7 +36,7 @@ $(document).ready(function() {
                         $.each(credits, function(i, tr) {
                             var row = $(tr);
                             albums.push({
-                                date: row.find("td.year").text().trim(),
+                                date: row.find("td.year").text().squish(),
                                 name: row.find("a").text(),
                                 score: parseInt(row.find("span.metascore_w").text())
                             });
