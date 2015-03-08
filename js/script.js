@@ -1,9 +1,51 @@
 $(document).ready(function() {
     "use strict";
 
+    var defaultArtistStr = "kanye west, jay-z, lil wayne, drake";
+    var defaultArtistList = defaultArtistStr.split(", ");
+
     String.prototype.squish = function() {
         return this.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
     };
+
+    function loadPage(terms) {
+        if (terms.length > 0) {
+            var baseUrl = window.location.href.split("?")[0];
+            var queryString = "?" + $.param({
+                "terms": terms
+            });
+            location.assign(baseUrl + queryString);
+        }
+    }
+
+    function addPageToHistory(terms) {
+        var pageObj = {
+            "html": window.location.href,
+            "pageTitle": ""
+        };
+        var url = window.location.href.split("?")[0] + "?" + $.param({
+            "terms": terms
+        });
+        window.history.pushState(pageObj, "", url);
+    }
+
+    function getQueryString() {
+        var qd = new QueryData();
+        var terms = [];
+        $.each(qd, function(i, item) {
+            terms.push(item.squish());
+        });
+        return terms.join(", ");
+    }
+
+    function getSearchTerms() {
+        var terms = getQueryString();
+        if (terms === "") {
+            terms = defaultArtistStr;
+            addPageToHistory(terms);
+        }
+        return terms;
+    }
 
     function metacriticURL(artist) {
         artist = artist.replace(/\s+/g, "-").replace(/'/g, "").replace(/\$/g, "");
@@ -12,10 +54,10 @@ $(document).ready(function() {
 
     function search() {
         // Set the default artists
-        var artists = ["kanye west", "jay-z", "lil wayne", "drake"];
+        var artists = defaultArtistList;
 
-        // Replace default artists with user-given values
-        var inputArtists = $("input[name=artists]").val().split(",");
+        // Replace the default artists with the user-given values
+        var inputArtists = $("input[name=search]").val().split(",");
         $.each(inputArtists, function(i, artist) {
             artists[i] = artist.squish().toLowerCase();
         });
@@ -57,23 +99,28 @@ $(document).ready(function() {
         });
     }
 
-    $(":input[name=artists]").keyup(function(e) {
+    $(":input[name=search]").keyup(function(e) {
         // "ENTER" key
         if (e.keyCode === 13) {
-            search();
+            loadPage($(":input[name=search]").val().squish());
         }
     });
 
     $("#enter").click(function(e) {
         e.preventDefault();
-        search();
+        loadPage($(":input[name=search]").val().squish());
     });
 
     ///////////////////////////////////////////////////////////////////////////
     // MAIN
     ///////////////////////////////////////////////////////////////////////////
 
-    // Display and search for the default artists
-    $("input[name=artists]").val("kanye west, jay-z, lil wayne, drake");
-    search();
+    // get the search term from the query string
+    var searchTerms = getSearchTerms();
+
+    // set the input field's value
+    $(":input[name=search]").val(searchTerms);
+
+    // perform the search
+    search(searchTerms);
 });
