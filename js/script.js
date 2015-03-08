@@ -29,9 +29,13 @@ $(document).ready(function() {
         window.history.pushState(pageObj, "", url);
     }
 
+    function getQueryString() {
+        var qd = new QueryData();
+        return (qd.search !== undefined) ? qd.search.squish() : "";
+    }
+
     function getSearchTerms() {
-        // get the query string's value for the "search" key
-        var terms = (new QueryData()).search.squish();
+        var terms = getQueryString();
         if (terms === "") {
             terms = defaultArtistStr;
             addPageToHistory(terms);
