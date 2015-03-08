@@ -12,7 +12,7 @@ $(document).ready(function() {
         if (terms.length > 0) {
             var baseUrl = window.location.href.split("?")[0];
             var queryString = "?" + $.param({
-                "terms": terms
+                "search": terms
             });
             location.assign(baseUrl + queryString);
         }
@@ -24,22 +24,14 @@ $(document).ready(function() {
             "pageTitle": ""
         };
         var url = window.location.href.split("?")[0] + "?" + $.param({
-            "terms": terms
+            "search": terms
         });
         window.history.pushState(pageObj, "", url);
     }
 
-    function getQueryString() {
-        var qd = new QueryData();
-        var terms = [];
-        $.each(qd, function(i, item) {
-            terms.push(item.squish());
-        });
-        return terms.join(", ");
-    }
-
     function getSearchTerms() {
-        var terms = getQueryString();
+        // get the query string's value for the "search" key
+        var terms = (new QueryData()).search.squish();
         if (terms === "") {
             terms = defaultArtistStr;
             addPageToHistory(terms);
