@@ -54,5 +54,12 @@ body {
 }
 .tooltip {
   background:#ccc;
-   padding:5px;
+  padding:5px;
+}
+.sitemap li {
+  display: inline;
+}
+.sitemap li:not(:last-child):after{
+  content:"|";
+  margin:0 3px 0 7px;
 }
