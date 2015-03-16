@@ -44,7 +44,7 @@ $(document).ready(function() {
     }
 
     function metacriticURL(artist) {
-        artist = artist.replace(/\s+/g, "-").replace(/'/g, "").replace(/\$/g, "");
+        artist = artist.replace(/\s+/g, "-").replace(/['\!\$]/g, "");
         return "http://www.metacritic.com/person/" + artist + "?filter-options=music";
     }
 
@@ -69,7 +69,7 @@ $(document).ready(function() {
                     success: function(res) {
                         var albums = [];
                         var credits = $(res.responseText)
-                            .find("table.credits.person_credits>tbody")
+                            .find("table.credits.person_credits tbody")
                             .children();
                         $.each(credits, function(i, tr) {
                             var row = $(tr);
