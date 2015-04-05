@@ -18,17 +18,6 @@ $(document).ready(function() {
         }
     }
 
-    function addPageToHistory(terms) {
-        var pageObj = {
-            "html": window.location.href,
-            "pageTitle": ""
-        };
-        var url = window.location.href.split("?")[0] + "?" + $.param({
-            "search": terms
-        });
-        window.history.pushState(pageObj, "", url);
-    }
-
     function getQueryString() {
         var qd = new QueryData();
         return (qd.search !== undefined) ? qd.search.squish() : "";
@@ -38,7 +27,7 @@ $(document).ready(function() {
         var terms = getQueryString();
         if (terms === "") {
             terms = defaultArtistStr;
-            addPageToHistory(terms);
+            loadPage(terms);
         }
         return terms;
     }
