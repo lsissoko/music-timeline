@@ -48,7 +48,7 @@ function draw(data) {
 
     var colorScale = d3.scale.category10();
 
-    x.domain([new Date("2000-02-10"), d3.time.day.offset(new Date(), 1)])
+    x.domain([new Date("1997-12-31"), d3.time.day.offset(new Date(), 1)])
         .rangeRound([100, width - margin.left - margin.right]);
 
     y.domain([0, 100])
