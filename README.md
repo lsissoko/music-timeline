@@ -1,4 +1,4 @@
-### [Metacritic Music Timeline](http://laminesissoko.com/music-timeline/)
+### Metacritic Music Timeline
 View musicians' aggregated Metacritic ratings over time.
 
 ***
